@@ -123,9 +123,6 @@ def tag(t):
     except Exception as e:
         print(style.red(e))
 
-def checkProps(r, prop):
-    return r[prop] if prop in r else ''
-
 def clean(s):
     return re.sub(r'\(.*?\)', '', s)
 
