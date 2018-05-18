@@ -8,6 +8,7 @@ from subprocess import call
 from spotipy.oauth2 import SpotifyClientCredentials
 from mutagen.easyid3 import EasyID3
 from apscheduler.schedulers.blocking import BlockingScheduler
+from config import SPOTIFY
 
 sched = None
 client_credentials_manager = None
@@ -40,27 +41,37 @@ def getPlaylistInfo():
     table = TinyDB('downloads/done.json').table('tracks')
     Track = Query()
 
-    playlists = sp.user_playlists('zaaking')
-    shazam = [d for d in playlists['items'] if d['name'] == 'My Shazam Tracks'][0]
+    spotifyUser = SPOTIFY['user']
+    spotifyPlaylist = SPOTIFY['playlist']
 
-    tracks = sp.user_playlist_tracks('zaaking', shazam['id'])
-    trackInfo = [t for t in [getTrackString(i) for i in tracks['items']] if t is not None]
+    playlists = sp.user_playlists(spotifyUser)
+    shazam = [d for d in playlists['items'] if d['name'] == spotifyPlaylist]
 
-    tracks_to_download = []
-    for ti in trackInfo:
-        if not table.search(Track.recording == ti['recording']):
-            tracks_to_download.append(ti)
+    if len(shazam) > 0:
+        shazam = shazam[0]
+        if 'id' in shazam:
+            tracks = sp.user_playlist_tracks(spotifyUser, shazam['id'])
+            trackInfo = [t for t in [getTrackString(i) for i in tracks['items']] if t is not None]
 
-    ttd_len = len(tracks_to_download)
+            tracks_to_download = []
+            for ti in trackInfo:
+                if not table.search(Track.recording == ti['recording']):
+                    tracks_to_download.append(ti)
 
-    if ttd_len > 0 and leds_loaded:
-        green.blink(0.5, 0.5, ttd_len, True)
+            ttd_len = len(tracks_to_download)
 
-    print(style.light_green('Found', style.italic.bold(str(len(trackInfo))), 'total tracks.',
-        style.italic.bold(str(ttd_len)), 'of them are new and will be downloaded now.\n'))
-    getLinks(tracks_to_download)
+            if ttd_len > 0 and leds_loaded:
+                green.blink(0.5, 0.5, ttd_len, True)
+
+            print(style.light_green('Found', style.italic.bold(str(len(trackInfo))), 'total tracks.',
+                style.italic.bold(str(ttd_len)), 'of them are new and will be downloaded now.\n'))
+            getLinks(tracks_to_download)
+        else:
+            error('There was no id provided from Spotify for that users playlist.')
+    else:
+        error(style.red('Could not find playlist,', style.bold(spotifyPlaylist) + ', for spotify user,', style.bold(spotifyUser)))
+
     print(style.light_green('Process done.'))
-
     if sched is not None:
         sched.remove_job('curr_job')
 
@@ -192,7 +203,7 @@ if __name__ == '__main__':
         leds_loaded = False
         error('Error importing gpiozero!')
 
-    client_credentials_manager = SpotifyClientCredentials(client_id='94d6737b743e469fa8d190ae0899c317', client_secret='0ee3084d44a94814a1270115f731e601')
+    client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIFY['client_id'], client_secret=SPOTIFY['client_secret'])
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     musicbrainzngs.set_useragent(
         "python-musicbrainzngs-example",
