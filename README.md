@@ -1,7 +1,5 @@
 # PizzaPi
 
-**Table of Contents**
-
 ### Features
 
 * Automatically download songs from a spotify playlist (most likely a Shazam connected playlist)
