@@ -50,7 +50,7 @@ class Recordings extends React.Component {
     }
 
     return (
-      <Grid item xs={6}>
+      <Grid item lg={6}>
         <Card>
           <CardContent>
             <Typography color="secondary" variant="headline" component="h2">
