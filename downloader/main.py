@@ -185,7 +185,7 @@ def startSchedule():
     log.addHandler(h)
 
     sched = BlockingScheduler()
-    sched.add_job(getPlaylistInfo, 'interval', seconds=10, id='curr_job')#hours=1)
+    sched.add_job(getPlaylistInfo, 'interval', hours=1, id='curr_job')
     sched.start()
 
 
