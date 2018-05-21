@@ -102,7 +102,7 @@ def download(links):
         convert(l)
 
 def convert(l):
-    pth = 'downloads/music/'
+    pth = 'downloads/'
     fn = pth + l['filename']
 
     input = glob.glob(fn + '.*')
