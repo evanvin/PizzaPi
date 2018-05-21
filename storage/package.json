@@ -7,6 +7,7 @@
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-geolocated": "^2.4.0",
     "react-scripts": "latest"
   },
   "scripts": {
