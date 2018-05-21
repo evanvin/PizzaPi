@@ -36,9 +36,8 @@ def getPlaylistInfo():
     # create folder and flat file if not exists
     if not os.path.exists('downloads/'):
         os.mkdir('downloads')
-        os.mkdir('downloads/music')
 
-    table = TinyDB('downloads/done.json').table('tracks')
+    table = TinyDB('../storage/db.json').table('tracks')
     Track = Query()
 
     spotifyUser = SPOTIFY['user']
@@ -97,7 +96,7 @@ def download(links):
     for l in links:
         print(style.light_yellow.on_blue.italic(l['filename']))
         step('\tStarting download...')
-        opt = {'outtmpl' : 'downloads/music/' + l['filename'] + '.%(ext)s', 'quiet': True, 'no_warnings': True}
+        opt = {'outtmpl' : 'downloads/' + l['filename'] + '.%(ext)s', 'quiet': True, 'no_warnings': True}
         youtube_dl.YoutubeDL(opt).download([l['link']])
         step('\tDownload complete. Starting conversion...')
         convert(l)
@@ -163,7 +162,7 @@ def tag(t):
 
 
             tags.save(t['filename'])
-            table = TinyDB('downloads/done.json').table('tracks')
+            table = TinyDB('../storage/db.json').table('tracks')
             table.insert(t['trackInfo'])
         except Exception as e:
             error('\t\tThere was an error during the editing of ID3 tags. Error message: {}'.format(e))
