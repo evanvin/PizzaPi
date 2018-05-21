@@ -2,10 +2,6 @@
 
 **Table of Contents**
 
-[TOCM]
-
-[TOC]
-
 ###Features
 
 * Automatically download songs from a spotify playlist (most likely a Shazam connected playlist)
