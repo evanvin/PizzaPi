@@ -4,3 +4,6 @@ cd PizzaPi/
 rm -rf dietpi.txt
 cd downloader/
 echo "SPOTIFY={'client_id':'{client_id}','client_secret':'{client_secret}','user':'{user}','playlist':'{playlist}'}" > config.py
+cd ..
+cd storage/
+npm install
