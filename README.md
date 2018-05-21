@@ -1,5 +1,12 @@
 # PizzaPi
-### Features
+
+**Table of Contents**
+
+[TOCM]
+
+[TOC]
+
+###Features
 
 * Automatically download songs from a spotify playlist (most likely a Shazam connected playlist)
 * Transfer of .mp3 files to a USB plugged into a RPI that contains a folder with a specific name
@@ -13,3 +20,7 @@ cd PizzaPi
 python setup.py
 python main.py
 ```
+
+### Todo
+
+* Allow user to input mutliple playlists
