@@ -59,9 +59,6 @@ def getPlaylistInfo():
 
             ttd_len = len(tracks_to_download)
 
-            if ttd_len > 0 and leds_loaded:
-                green.blink(0.5, 0.5, ttd_len, True)
-
             print(style.light_green('Found', style.italic.bold(str(len(trackInfo))), 'total tracks.',
                 style.italic.bold(str(ttd_len)), 'of them are new and will be downloaded now.\n'))
             getLinks(tracks_to_download)
@@ -193,15 +190,6 @@ def startSchedule():
 
 
 if __name__ == '__main__':
-    try:
-        from gpiozero import LED
-        red = LED(35)
-        green = LED(47)
-        les_loaded = True
-    except Exception as e:
-        leds_loaded = False
-        error('Error importing gpiozero!')
-
     client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIFY['client_id'], client_secret=SPOTIFY['client_secret'])
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     musicbrainzngs.set_useragent(
