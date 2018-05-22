@@ -33,7 +33,7 @@
 > Once the setup is done, the auto-downloader should start. This will check the specified spotify playlist for new songs to download and download them automatically and update their ID3 metadata.
 
 > ### USB
->You should be able to insert an USb device into the RPI device and it will automatically copy over songs that are downloaded but not on the USB yet. ***USB drive must have a folder title 'pizza' for auto transfer to work***
+>You should be able to insert an USB device into the RPI device and it will automatically copy over any songs that have not been copied over to the USB yet. ***USB drive must have a folder title 'pizza' for auto transfer to work***
 
 ---
 
