@@ -12,6 +12,7 @@ import {
   Button,
   Grid
 } from '@material-ui/core';
+const {IP} = require('./ip');
 
 class Recordings extends React.Component {
   state = {
@@ -19,7 +20,7 @@ class Recordings extends React.Component {
   };
 
   componentDidMount = async () => {
-    fetch('http://localhost:8008/tracks')
+    fetch(`http://${IP}:8008/tracks`)
       .then(res => res.json())
       .then(
         result => {
@@ -80,7 +81,7 @@ class Recordings extends React.Component {
                     <TableCell>{item.recording}</TableCell>
                     <TableCell>
                       <Button
-                        href={`http://localhost:8008/download?recording=${
+                        href={`http://${IP}:8008/download?recording=${
                           item.recording
                         }`}
                       >
