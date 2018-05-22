@@ -8,3 +8,6 @@ cd storage/
 npm install
 cd ..
 rm -rf dietpi.txt
+python downloader/main.py &
+python storage/dataservice.py &
+npm start --prefix storage/
