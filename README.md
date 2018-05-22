@@ -22,3 +22,4 @@
 ### Todo
 
 * Allow user to input mutliple playlists
+* Figure out mutlithreading for downloader and web interface and flask server
