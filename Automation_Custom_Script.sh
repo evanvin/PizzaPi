@@ -2,6 +2,7 @@ git clone https://github.com/evanvin/PizzaPi.git
 sudo pip install tinydb spotipy beautifulsoup4 mutagen apscheduler youtube_dl musicbrainzngs style flask flask-cors
 cd downloader/
 echo "SPOTIFY={'client_id':'{client_id}','client_secret':'{client_secret}','user':'{user}','playlist':'{playlist}'}" > config.py
+hostname -I | awk '{print $1}'
 cd ..
 cd storage/
 npm install
