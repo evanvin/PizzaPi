@@ -12,4 +12,4 @@ rm -rf Automation_Custom_Script.sh
 
 cd downloader/
 echo "SPOTIFY={'client_id':'{client_id}','client_secret':'{client_secret}','user':'{user}','playlist':'{playlist}'}" > config.py
-python main.py & python usb.py
+python python usb.py & main.py
