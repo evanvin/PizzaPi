@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-import logging, os, re, urllib, urllib2, glob, style
+import logging, os, re, urllib, urllib2, glob, style, time
 import spotipy, youtube_dl, mutagen, musicbrainzngs
 
 from tinydb import TinyDB, Query
@@ -7,10 +7,8 @@ from bs4 import BeautifulSoup
 from subprocess import call
 from spotipy.oauth2 import SpotifyClientCredentials
 from mutagen.easyid3 import EasyID3
-from apscheduler.schedulers.blocking import BlockingScheduler
 from config import SPOTIFY
 
-sched = None
 client_credentials_manager = None
 sp = None
 
@@ -68,8 +66,8 @@ def getPlaylistInfo():
         error(style.red('Could not find playlist,', style.bold(spotifyPlaylist) + ', for spotify user,', style.bold(spotifyUser)))
 
     print(style.light_green('Process done.'))
-    if sched is not None:
-        sched.remove_job('curr_job')
+    time.sleep(3600)
+    getPlaylistInfo()
 
 
 def getLinks(tracks):
@@ -176,19 +174,6 @@ def error(e):
 def step(s):
     print(style.cyan(s))
 
-def startSchedule():
-    log = logging.getLogger('apscheduler.executors.default')
-    log.setLevel(logging.INFO)
-    fmt = logging.Formatter('Scheduled Job (%(asctime)s)')
-    h = logging.StreamHandler()
-    h.setFormatter(fmt)
-    log.addHandler(h)
-
-    sched = BlockingScheduler()
-    sched.add_job(getPlaylistInfo, 'interval', hours=1, id='curr_job')
-    sched.start()
-
-
 if __name__ == '__main__':
     client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIFY['client_id'], client_secret=SPOTIFY['client_secret'])
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
@@ -199,4 +184,3 @@ if __name__ == '__main__':
     )
 
     getPlaylistInfo()
-    startSchedule()
