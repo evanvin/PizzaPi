@@ -1,4 +1,10 @@
-# PizzaPi
+<h1 align="center">
+  <br>
+  <img src="https://github.com/evanvin/PizzaPi/blob/master/PizzaPi.png" alt="PizzaPi" width="250">
+  <br>
+  PizzaPi
+</h1>
+
 
 ### Features
 
