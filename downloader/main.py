@@ -77,7 +77,6 @@ def getLinks(tracks):
             filename = (t['recording'] + ' ~~ ' + t['artist'])
             url = filename.encode('utf-8')
             query = urllib.quote( url )
-            print(query)
             url = "https://www.youtube.com/results?search_query=" + query
             response = urllib2.urlopen(url)
             html = response.read()
