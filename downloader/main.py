@@ -39,11 +39,10 @@ def getPlaylistInfo():
     Track = Query()
 
     spotifyUser = SPOTIFY['user']
-    spotifyPlaylists = SPOTIFY['playlist']
+    configPlaylists = SPOTIFY['playlist']
+    userPlaylists = sp.user_playlists(spotifyUser)
+    shazams = userPlaylists['items'] if configPlaylists[0] == '--all--' else [d for d in userPlaylists['items'] if d['name'] in configPlaylists]
 
-    playlists = sp.user_playlists(spotifyUser)
-    shazams = [d for d in playlists['items'] if d['name'] in spotifyPlaylists]
-    
     if len(shazams) > 0:
         for shazam in shazams:
             if 'id' in shazam:
@@ -76,7 +75,9 @@ def getLinks(tracks):
         step('Finding links for {} tracks...'.format(len(tracks)))
         for t in tracks:
             filename = (t['recording'] + ' ~~ ' + t['artist'])
-            query = urllib.quote( filename )
+            url = filename.encode('utf-8')
+            query = urllib.quote( url )
+            print(query)
             url = "https://www.youtube.com/results?search_query=" + query
             response = urllib2.urlopen(url)
             html = response.read()
