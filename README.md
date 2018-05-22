@@ -17,7 +17,7 @@
 1. Download [dietpi](https://dietpi.com) and mount to MicroSD card
 2. Plug MicroSD card back into computer, and copy the 'dietpi.txt' file from this git repository into your MicroSD cards /boot folder (This will overwrite the 'dietpi.txt' file that is already present)
 3. Also, copy the 'Automation_Custom_Script.sh' file from this repository into your MicroSD cards /boot folder
-4. Open the 'Automation_Custom_Script.sh' file you just copied into the /boot folder, and edit line 14 with your appropriate Spotify Web API information (client_id, client_secret, your username, and the name of the playlist(s) you wish this program to listen to and download. Save your changes.
+4. Open the 'Automation_Custom_Script.sh' file you just copied into the /boot folder, and edit line 15 with your appropriate Spotify Web API information (client_id, client_secret, your username, and the name of the playlist(s) you wish this program to listen to and download. Save your changes.
 > The playlist property takes a list of strings. Or if you would like to download all songs from every playlist, set the playlist property to ['--all--']. ***You might see some files missing, but that has to do with Spotify's API not sending back up-to-date data for some users***
 5. Safely eject the MicroSD card, and plug into your RPI/Other device. Plug in an ethernet cord, and power up the device and wait.
 
