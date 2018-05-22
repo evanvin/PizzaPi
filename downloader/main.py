@@ -39,29 +39,29 @@ def getPlaylistInfo():
     Track = Query()
 
     spotifyUser = SPOTIFY['user']
-    spotifyPlaylist = SPOTIFY['playlist']
+    spotifyPlaylists = SPOTIFY['playlist']
 
     playlists = sp.user_playlists(spotifyUser)
-    shazam = [d for d in playlists['items'] if d['name'] == spotifyPlaylist]
+    shazams = [d for d in playlists['items'] if d['name'] in spotifyPlaylists]
+    
+    if len(shazams) > 0:
+        for shazam in shazams:
+            if 'id' in shazam:
+                tracks = sp.user_playlist_tracks(spotifyUser, shazam['id'])
+                trackInfo = [t for t in [getTrackString(i) for i in tracks['items']] if t is not None]
 
-    if len(shazam) > 0:
-        shazam = shazam[0]
-        if 'id' in shazam:
-            tracks = sp.user_playlist_tracks(spotifyUser, shazam['id'])
-            trackInfo = [t for t in [getTrackString(i) for i in tracks['items']] if t is not None]
+                tracks_to_download = []
+                for ti in trackInfo:
+                    if not table.search(Track.recording == ti['recording']):
+                        tracks_to_download.append(ti)
 
-            tracks_to_download = []
-            for ti in trackInfo:
-                if not table.search(Track.recording == ti['recording']):
-                    tracks_to_download.append(ti)
+                ttd_len = len(tracks_to_download)
 
-            ttd_len = len(tracks_to_download)
-
-            print(style.light_green('Found', style.italic.bold(str(len(trackInfo))), 'total tracks.',
-                style.italic.bold(str(ttd_len)), 'of them are new and will be downloaded now.\n'))
-            getLinks(tracks_to_download)
-        else:
-            error('There was no id provided from Spotify for that users playlist.')
+                print(style.light_green(style.italic.bold(shazam['name']), '- Found', style.italic.bold(str(len(trackInfo))), 'total tracks for playlist.',
+                    style.italic.bold(str(ttd_len)), 'of them are new and will be downloaded now.\n'))
+                getLinks(tracks_to_download)
+            else:
+                error('There was no id provided from Spotify for that users playlist.')
     else:
         error(style.red('Could not find playlist,', style.bold(spotifyPlaylist) + ', for spotify user,', style.bold(spotifyUser)))
 
