@@ -40,7 +40,7 @@
 
 ### Todo
 
-* Allow user to input mutliple playlists
+* ~~Allow user to input mutliple playlists~~
 * Figure out multithreading for downloader and web interface and flask server
 * Hijack the onboard RPI green light to show that USB transfer is in process
 * Add code for potential GPIO button press to trigger a download refresh
