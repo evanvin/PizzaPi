@@ -34,7 +34,8 @@ Once the setup is done, the auto-downloader should start. This will check the sp
 
 ### USB
 You should be able to insert an USB device into the RPI device and it will automatically copy over any already downloaded songs that have not been copied over to your USB yet. 
-  ***\*USB drive must have a folder titled 'pizza' for auto transfer to work***
+
+***\* USB drive must have a folder titled 'pizza' for auto transfer to work***
 
 ---
 
