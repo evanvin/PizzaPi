@@ -44,3 +44,4 @@ You should be able to insert an USB device into the RPI device and it will autom
 * Figure out multithreading for downloader and web interface and flask server
 * Hijack the onboard RPI green light to show that USB transfer is in process
 * Add code for potential GPIO button press to trigger a download refresh
+* Add option to startup script to send the IP address to a provided email address
