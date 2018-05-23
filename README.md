@@ -6,11 +6,21 @@
 </h1>
 
 
-### Features
+## Features
 
 * Automatically download songs from spotify playlist(s) (most likely a Shazam connected playlist)
 * Transfer of .mp3 files to a USB plugged into a RPI that contains a folder with a specific name
 * ~~A web interface for file management~~ Not yet perfected
+
+## Table of Contents
+
+- [Setup](#setup)
+- [Tools](#tools)
+- [Usage](#usage)
+  - [Downloader](#downloader)
+  - [USB Transfer](#usb)
+
+---
 
 ### Setup
 
@@ -27,15 +37,14 @@
 
 ---
 
-## Tools
+## Usage
 
 ### Downloader
 Once the setup is done, the auto-downloader should start. This will check the specified spotify playlist(s) for new songs to download, and download them automatically and update their ID3 metadata.
 
 ### USB
 You should be able to insert an USB device into the RPI device and it will automatically copy over any already downloaded songs that have not been copied over to your USB yet. 
-
-***\* USB drive must have a folder titled 'pizza' for auto transfer to work***
+> ***\* USB drive must have a folder titled 'pizza' for auto transfer to work***
 
 ---
 
