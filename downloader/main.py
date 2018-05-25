@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*
 from __future__ import unicode_literals
-import logging, os, re, urllib, urllib2, glob, style, time
+import logging, os, re, urllib, urllib2, glob, style, time, click
 import spotipy, youtube_dl, mutagen, musicbrainzngs
 
 from tinydb import TinyDB, Query
@@ -118,23 +119,24 @@ def getLinks(tracks):
         step('Finding links for {} tracks...'.format(len(tracks)))
 
         # Loop through the tracks to figure out their YouTube video link
-        for t in tracks:
-            # Create filename
-            filename = (t['recording'] + ' ~~ ' + t['artist'])
+        with click.progressbar(tracks, length=len(tracks), show_pos=True, show_eta=True, fill_char='█', empty_char=' ') as bar:
+            for t in bar:
+                # Create filename
+                filename = (t['recording'] + ' ~~ ' + t['artist'])
 
-            # Build the search query URL for youtube
-            url = filename.encode('utf-8')
-            query = urllib.quote( url )
-            url = "https://www.youtube.com/results?search_query=" + query
-            response = urllib2.urlopen(url)
+                # Build the search query URL for youtube
+                url = filename.encode('utf-8')
+                query = urllib.quote( url )
+                url = "https://www.youtube.com/results?search_query=" + query
+                response = urllib2.urlopen(url)
 
-            # Retrieve and parse the HTML from search query URL to find the YouTube link
-            html = response.read()
-            soup = BeautifulSoup(html, "html.parser")
-            vid = soup.findAll(attrs={'class':'yt-uix-tile-link'})[0]
+                # Retrieve and parse the HTML from search query URL to find the YouTube link
+                html = response.read()
+                soup = BeautifulSoup(html, "html.parser")
+                vid = soup.findAll(attrs={'class':'yt-uix-tile-link'})[0]
 
-            # Add the information to a running list
-            vids.append( {"filename": filename, "link": 'https://www.youtube.com' + vid['href'], 'track_info': t} )
+                # Add the information to a running list
+                vids.append( {"filename": filename, "link": 'https://www.youtube.com' + vid['href'], 'track_info': t} )
 
         step('{} links found. Starting the download process...\n'.format(len(vids)))
 
@@ -145,7 +147,7 @@ def getLinks(tracks):
 def download(links):
     # Loop through the links and download each one
     for l in links:
-        print(style.light_yellow.on_blue.italic(l['filename']))
+        print(style.light_yellow.on_magenta.italic(l['filename']))
         step('\tStarting download...')
 
         # Create the output file structure
@@ -253,9 +255,10 @@ def clean(s):
 def error(e):
     print(style.light_red.italic(e))
 
+
 # Prints out a styled message for steps in the process
 def step(s):
-    print(style.cyan(s))
+    print(style.light_cyan(s))
 
 if __name__ == '__main__':
     # Check for correct config properties
