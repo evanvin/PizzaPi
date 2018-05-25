@@ -51,6 +51,7 @@ You should be able to insert an USB device into the RPI device and it will autom
 ### Todo
 
 * [X] Allow user to input mutliple playlists
+* [ ] Organize tracks into playlist-specific folders
 * [ ] Figure out multithreading for downloader and web interface and flask server
 * [ ] Hijack the onboard RPI green light to show that USB transfer is in process
 * [ ] Add code for potential GPIO button press to trigger a download refresh
