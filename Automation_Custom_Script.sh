@@ -1,5 +1,5 @@
 git clone https://github.com/evanvin/PizzaPi.git
-sudo pip install tinydb spotipy beautifulsoup4 mutagen youtube_dl musicbrainzngs style flask flask-cors
+sudo pip install tinydb spotipy beautifulsoup4 mutagen youtube_dl musicbrainzngs style flask flask-cors click
 
 cd storage/
 npm install
@@ -12,5 +12,5 @@ rm -rf Automation_Custom_Script.sh
 rm -rf PizzaPi.png
 
 cd downloader/
-echo "SPOTIFY={'client_id':'{client_id}','client_secret':'{client_secret}','user':'{user}','playlist':['{playlist}']}" > config.py
+echo "SPOTIFY={'client_id':'{client_id}','client_secret':'{client_secret}','user':'{user}','playlist':'[{playlist}]'}" > config.py
 python python usb.py & main.py
