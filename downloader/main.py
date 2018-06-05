@@ -36,7 +36,7 @@ def getTrackString(t, playlist_dir):
 def getPlaylistInfo():
     
         
-    channels = 45
+    channels = 47
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(channels, GPIO.OUT)
     GPIO.setwarnings(False)
