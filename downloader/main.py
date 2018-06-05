@@ -41,6 +41,15 @@ def getTrackString(t, playlist_dir):
 
 
 def getPlaylistInfo():
+    if leds_loaded:
+        green.blink(0.5, 0.5)
+        red.blink(0.5, 0.5)
+    
+    time.sleep(5)
+    if leds_loaded:
+        green.off()
+        red.off()
+        
     # Get start time
     start_time = time.time()
 
