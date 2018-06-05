@@ -1,13 +1,14 @@
 import os, shutil, time, style
 
-try:
-    from gpiozero import LED
-    red = LED(35)
-    green = LED(47)
-    les_loaded = True
-except Exception as e:
-    leds_loaded = False
-    print(style.light_red.italic('Error importing gpiozero!'))
+# try:
+#     GREEN = 16
+#     GPIO.setwarnings(False)
+#     GPIO.setmode(GPIO.BCM)
+#     GPIO.setup(GREEN, GPIO.OUT)
+#     GPIO.output(GREEN, True)
+# except:
+#     print ""
+
 
 USB = '/mnt/'
 DOWNLOAD = 'downloads/'
@@ -22,8 +23,7 @@ def checkUSB():
         usb_pizza = USB + d + '/pizza/'
         if os.path.exists(usb_pizza):
             # If LED is possible, start blinking the green on-board LED
-            if leds_loaded:
-                green.blink(0.5, 0.5)
+            # TODO
 
             # Find all directories in download folder from the SBC, and pizza folder from the USB
             download_folders = next(os.walk(DOWNLOAD + '.'))[1]
@@ -51,8 +51,7 @@ def checkUSB():
                 os.system('sudo eject "' + USB + d + '"')
 
             # If LED is possible, turn off the green on-board LED
-            if leds_loaded:
-                green.off()
+            # TODO
 
     # The check/transfer is over, so we sleep for 5 seconds and check again to see if a USB has been inserted into the SBC
     time.sleep(0.1)
