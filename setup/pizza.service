@@ -1,0 +1,8 @@
+[Unit]
+Description=PizzaPi Startup Service
+
+[Service]
+ExecStart=/root/PizzaPi/setup/boot.sh
+
+[Install]
+WantedBy=default.target
