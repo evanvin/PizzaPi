@@ -11,5 +11,9 @@ cp /boot/config.py ~/PizzaPi/downloader
 
 cd ~/PizzaPi/setup/
 chmod u+x boot.sh
+sudo systemctl start pizza
+sudo systemctl enable pizza
+sudo systemctl stop pizza
 
+cd ~/PizzaPi/downloader/
 python python usb.py & main.py
