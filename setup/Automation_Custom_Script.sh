@@ -6,7 +6,6 @@ npm install
 cd src/Components/
 hostname -I | awk '{print "module.exports = {IP:\x27"$1"\x27};"}' > ip.js
 
-cd ~/PizzaPi/downloader/
 cp /boot/config.py ~/PizzaPi/downloader
 
 sudo chmod 774 ~/PizzaPi/setup/boot.sh
