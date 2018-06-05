@@ -152,7 +152,7 @@ def download(links):
         step('\tStarting download...')
 
         # Create the output file structure
-        opt = {'outtmpl' : ROOT + 'downloader/downloads/' + l['track_info']['playlist_dir'] + '/' + l['filename'] + '.%(ext)s', 'quiet': True, 'no_warnings': True}
+        opt = {'outtmpl' : l['track_info']['playlist_dir'] + '/' + l['filename'] + '.%(ext)s', 'quiet': True, 'no_warnings': True}
 
         # Download the link
         youtube_dl.YoutubeDL(opt).download([l['link']])
@@ -163,7 +163,7 @@ def download(links):
 
 def convert(l):
     # Instantiate the playlist directory path and full filename path
-    pth = ROOT + 'downloader/downloads/' + l['track_info']['playlist_dir'] + '/'
+    pth = l['track_info']['playlist_dir'] + '/'
     fn = pth + l['filename']
 
     # Find the input video file
