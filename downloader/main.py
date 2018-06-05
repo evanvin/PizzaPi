@@ -12,6 +12,7 @@ from config import SPOTIFY
 
 client_credentials_manager = None
 sp = None
+ROOT = '~/PizzaPi/'
 
 def getTrackString(t, playlist_dir):
     if 'track' in t:
@@ -49,12 +50,12 @@ def getPlaylistInfo():
 
         if len(playlists) > 0:
             # Create download directory if not exists
-            if not os.path.exists('downloads/'):
-                os.mkdir('downloads')
+            if not os.path.exists(ROOT + 'downloader/downloads/'):
+                os.mkdir(ROOT + 'downloader/downloads')
 
             # Create or Open existing tracks table in flat file
             # Create a TinyDB Query object
-            table = TinyDB('../storage/db.json').table('tracks')
+            table = TinyDB(ROOT + 'storage/db.json').table('tracks')
             track_query = Query()
 
 
@@ -63,7 +64,7 @@ def getPlaylistInfo():
                 if 'id' in playlist:
                     if 'name' in playlist:
                         # Create playlist directory in download folder if not exists
-                        playlist_dir = 'downloads/' + playlist['name']
+                        playlist_dir = ROOT + 'downloader/downloads/' + playlist['name']
                         if not os.path.exists(playlist_dir):
                             os.mkdir(playlist_dir)
 
@@ -151,7 +152,7 @@ def download(links):
         step('\tStarting download...')
 
         # Create the output file structure
-        opt = {'outtmpl' : l['track_info']['playlist_dir'] + '/' + l['filename'] + '.%(ext)s', 'quiet': True, 'no_warnings': True}
+        opt = {'outtmpl' : ROOT + 'downloader/downloads/' + l['track_info']['playlist_dir'] + '/' + l['filename'] + '.%(ext)s', 'quiet': True, 'no_warnings': True}
 
         # Download the link
         youtube_dl.YoutubeDL(opt).download([l['link']])
@@ -162,7 +163,7 @@ def download(links):
 
 def convert(l):
     # Instantiate the playlist directory path and full filename path
-    pth = l['track_info']['playlist_dir'] + '/'
+    pth = ROOT + 'downloader/downloads/' + l['track_info']['playlist_dir'] + '/'
     fn = pth + l['filename']
 
     # Find the input video file
@@ -239,7 +240,7 @@ def tag(t):
             tags.save(t['filename'])
 
             # Insert this track information into the flat file
-            table = TinyDB('../storage/db.json').table('tracks')
+            table = TinyDB(ROOT + '/storage/db.json').table('tracks')
             table.insert(t['track_info'])
         except Exception as e:
             error('\t\tThere was an error during the editing of ID3 tags. Error message: {}'.format(e))
