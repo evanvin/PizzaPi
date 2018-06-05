@@ -10,7 +10,10 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from mutagen.easyid3 import EasyID3
 from config import SPOTIFY
 
-import RPi.GPIO as GPIO
+try:
+    import RPi.GPIO as GPIO
+except Exception as e:
+    
 
 client_credentials_manager = None
 sp = None
@@ -34,18 +37,14 @@ def getTrackString(t, playlist_dir):
 
 
 def getPlaylistInfo():
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(16, GPIO.OUT)
-    
-   
-    for num in range(5):
-        print num
-        GPIO.output(16, True)
-        time.sleep(1)
-        GPIO.output(16, False)
-        time.sleep(1)
-    
+    try:
+        GREEN = 16
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(GREEN, GPIO.OUT)
+        GPIO.output(GREEN, True)    
+    except Exception as e:
+        print e
         
     # Get start time
     start_time = time.time()
