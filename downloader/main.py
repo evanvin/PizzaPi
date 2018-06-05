@@ -10,6 +10,15 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from mutagen.easyid3 import EasyID3
 from config import SPOTIFY
 
+try:
+    from gpiozero import LED
+    red = LED(35)
+    green = LED(47)
+    les_loaded = True
+except Exception as e:
+    leds_loaded = False
+    print(style.light_red.italic('Error importing gpiozero!'))
+
 client_credentials_manager = None
 sp = None
 
