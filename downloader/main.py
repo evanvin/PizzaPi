@@ -40,16 +40,11 @@ def getPlaylistInfo():
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(channels, GPIO.OUT)
     GPIO.setwarnings(False)
-    for i in range(10):
-        print('top' + str(i))
-        GPIO.output(channels, GPIO.HIGH)
-        time.sleep(0.5)
-        print('middle' + str(i))
-        GPIO.output(channels, GPIO.LOW)
-        time.sleep(0.5)
-        print('bottom' + str(i))
-        print('--------------')
-    GPIO.cleanup()
+   
+   
+    GPIO.output(channels, GPIO.HIGH)
+        
+    
         
     # Get start time
     start_time = time.time()
@@ -129,6 +124,7 @@ def getPlaylistInfo():
 
     # Sleep and then call itself to run again
     time.sleep(time_left)
+    GPIO.cleanup()
     getPlaylistInfo()
 
 
