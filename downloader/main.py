@@ -41,8 +41,9 @@ def getPlaylistInfo():
         time.sleep(5)               
     except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
         print("Keyboard interrupt")
-    except:
-       print("some error") 
+    except Exception as e:
+        print("some error") 
+        print e
     finally:
        print("clean up") 
        GPIO.cleanup() # cleanup all GPIO 
