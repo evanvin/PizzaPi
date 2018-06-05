@@ -1,1 +1,1 @@
-echo "Hello World!"
+python ~/PizzaPi/downloader/main.py
