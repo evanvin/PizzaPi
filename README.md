@@ -14,7 +14,6 @@
 ## Table of Contents
 
 * [Setup](#setup)
-* [Tools](#tools)
 * [Usage](#usage)
   * [Downloader](#downloader)
   * [USB Transfer](#usb)
@@ -23,7 +22,7 @@
 
 ### Setup
 
-Please navigate to setup folder in this project
+Please navigate to *_setup_* folder in this project
 
 ---
 
