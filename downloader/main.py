@@ -11,6 +11,7 @@ from mutagen.easyid3 import EasyID3
 from config import SPOTIFY
 
 import RPi.GPIO as GPIO
+leds_loaded = False
 
 try:
     from gpiozero import LED
