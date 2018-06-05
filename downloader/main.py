@@ -12,7 +12,6 @@ from config import SPOTIFY
 
 client_credentials_manager = None
 sp = None
-ROOT = '~/PizzaPi/'
 
 def getTrackString(t, playlist_dir):
     if 'track' in t:
@@ -32,7 +31,7 @@ def getTrackString(t, playlist_dir):
     return None
 
 
-def getPlaylistInfo():        
+def getPlaylistInfo():
     # Get start time
     start_time = time.time()
 
@@ -50,12 +49,12 @@ def getPlaylistInfo():
 
         if len(playlists) > 0:
             # Create download directory if not exists
-            if not os.path.exists(ROOT + 'downloader/downloads/'):
-                os.mkdir(ROOT + 'downloader/downloads')
+            if not os.path.exists('downloads/'):
+                os.mkdir('downloads')
 
             # Create or Open existing tracks table in flat file
             # Create a TinyDB Query object
-            table = TinyDB(ROOT + 'storage/db.json').table('tracks')
+            table = TinyDB('../storage/db.json').table('tracks')
             track_query = Query()
 
 
@@ -64,7 +63,7 @@ def getPlaylistInfo():
                 if 'id' in playlist:
                     if 'name' in playlist:
                         # Create playlist directory in download folder if not exists
-                        playlist_dir = ROOT + 'downloader/downloads/' + playlist['name']
+                        playlist_dir = 'downloads/' + playlist['name']
                         if not os.path.exists(playlist_dir):
                             os.mkdir(playlist_dir)
 
@@ -89,7 +88,9 @@ def getPlaylistInfo():
                             style.italic.bold(str(ttd_len)), 'of them are new and will be downloaded now.\n'))
 
                         # Get YouTube links for the tracks
-                        getLinks(tracks_to_download)
+                        step('Finding links for {} tracks...\n'.format(ttd_len))
+                        for trk in tracks_to_download:
+                            getLink(trk)
                     else:
                         error('There was no name provided from Spotify for that users playlist.')
                 else:
@@ -114,52 +115,38 @@ def getPlaylistInfo():
     getPlaylistInfo()
 
 
-def getLinks(tracks):
-    vids = []
-    if len(tracks) > 0:
-        step('Finding links for {} tracks...'.format(len(tracks)))
+def getLink(track):
+    # Create filename
+    filename = (track['recording'] + ' ~~ ' + track['artist'])
 
-        # Loop through the tracks to figure out their YouTube video link
-        with click.progressbar(tracks, length=len(tracks), show_pos=True, show_eta=True, fill_char='█', empty_char=' ') as bar:
-            for t in bar:
-                # Create filename
-                filename = (t['recording'] + ' ~~ ' + t['artist'])
+    # Build the search query URL for youtube
+    url = filename.encode('utf-8')
+    query = urllib.quote( url )
+    url = "https://www.youtube.com/results?search_query=" + query
+    response = urllib2.urlopen(url)
 
-                # Build the search query URL for youtube
-                url = filename.encode('utf-8')
-                query = urllib.quote( url )
-                url = "https://www.youtube.com/results?search_query=" + query
-                response = urllib2.urlopen(url)
+    # Retrieve and parse the HTML from search query URL to find the YouTube link
+    html = response.read()
+    soup = BeautifulSoup(html, "html.parser")
+    vid = soup.findAll(attrs={'class':'yt-uix-tile-link'})[0]
 
-                # Retrieve and parse the HTML from search query URL to find the YouTube link
-                html = response.read()
-                soup = BeautifulSoup(html, "html.parser")
-                vid = soup.findAll(attrs={'class':'yt-uix-tile-link'})[0]
-
-                # Add the information to a running list
-                vids.append( {"filename": filename, "link": 'https://www.youtube.com' + vid['href'], 'track_info': t} )
-
-        step('{} links found. Starting the download process...\n'.format(len(vids)))
-
-        # Send the link list to be downloaded
-        download(vids)
+    # Add the information to a running list
+    download({"filename": filename, "link": 'https://www.youtube.com' + vid['href'], 'track_info': track} )
 
 
-def download(links):
-    # Loop through the links and download each one
-    for l in links:
-        print(style.light_yellow.on_magenta.italic(l['filename']))
-        step('\tStarting download...')
+def download(link):
+    print(style.light_yellow.on_magenta.italic(link['filename']))
+    step('\tStarting download...')
 
-        # Create the output file structure
-        opt = {'outtmpl' : l['track_info']['playlist_dir'] + '/' + l['filename'] + '.%(ext)s', 'quiet': True, 'no_warnings': True}
+    # Create the output file structure
+    opt = {'outtmpl' : link['track_info']['playlist_dir'] + '/' + link['filename'] + '.%(ext)s', 'quiet': True, 'no_warnings': True}
 
-        # Download the link
-        youtube_dl.YoutubeDL(opt).download([l['link']])
-        step('\tDownload complete. Starting conversion...')
+    # Download the link
+    youtube_dl.YoutubeDL(opt).download([link['link']])
+    step('\tDownload complete. Starting conversion...')
 
-        # After download is complete, convert the video file to an MP3
-        convert(l)
+    # After download is complete, convert the video file to an MP3
+    convert(link)
 
 def convert(l):
     # Instantiate the playlist directory path and full filename path
@@ -240,7 +227,7 @@ def tag(t):
             tags.save(t['filename'])
 
             # Insert this track information into the flat file
-            table = TinyDB(ROOT + '/storage/db.json').table('tracks')
+            table = TinyDB('../storage/db.json').table('tracks')
             table.insert(t['track_info'])
         except Exception as e:
             error('\t\tThere was an error during the editing of ID3 tags. Error message: {}'.format(e))
