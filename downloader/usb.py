@@ -55,7 +55,7 @@ def checkUSB():
                 green.off()
 
     # The check/transfer is over, so we sleep for 5 seconds and check again to see if a USB has been inserted into the SBC
-    time.sleep(5)
+    time.sleep(0.1)
     checkUSB()
 
 
