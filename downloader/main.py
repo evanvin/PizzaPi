@@ -11,17 +11,6 @@ from mutagen.easyid3 import EasyID3
 from config import SPOTIFY
 
 import RPi.GPIO as GPIO
-leds_loaded = False
-
-try:
-    from gpiozero import LED
-    red = LED(35)
-    green = LED(47)
-    les_loaded = True
-except Exception as e:
-    print e
-    leds_loaded = False
-    print(style.light_red.italic('Error importing gpiozero!'))
 
 client_credentials_manager = None
 sp = None
@@ -45,14 +34,13 @@ def getTrackString(t, playlist_dir):
 
 
 def getPlaylistInfo():
-    if leds_loaded:
-        green.blink(0.5, 0.5)
-        red.blink(0.5, 0.5)
-    
+    channels = [35,47]
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(channels, GPIO.OUT)
+    GPIO.output(channels, GPIO.HIGH)
     time.sleep(5)
-    if leds_loaded:
-        green.off()
-        red.off()
+    GPIO.output(channels, GPIO.LOW)
+    GPIO.cleanup()
         
     # Get start time
     start_time = time.time()
