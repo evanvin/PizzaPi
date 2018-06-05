@@ -34,16 +34,17 @@ def getTrackString(t, playlist_dir):
 
 
 def getPlaylistInfo():
-    
-        
-    channels = 47
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(channels, GPIO.OUT)
     GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(16, GPIO.OUT)
+    
    
-   
-    GPIO.output(channels, GPIO.HIGH)
-        
+    for num in range(5):
+        print num
+        GPIO.output(16, True)
+        time.sleep(1)
+        GPIO.output(16, False)
+        time.sleep(1)
     
         
     # Get start time
