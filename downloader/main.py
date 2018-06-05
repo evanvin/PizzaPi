@@ -34,20 +34,13 @@ def getTrackString(t, playlist_dir):
 
 
 def getPlaylistInfo():
-    
-    try:
-        GPIO.setmode(GPIO.BOARD)
-        print("set GIOP high")
-        GPIO.output(35,GPIO.HIGH)
-        time.sleep(5)               
-    except KeyboardInterrupt: # If CTRL+C is pressed, exit cleanly:
-        print("Keyboard interrupt")
-    except Exception as e:
-        print("some error") 
-        print e
-    finally:
-       print("clean up") 
-       GPIO.cleanup() # cleanup all GPIO 
+    channels = [35,47]
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(channels, GPIO.OUT)
+    GPIO.output(channels, GPIO.HIGH)
+    time.sleep(5)
+    GPIO.output(channels, GPIO.LOW)
+    GPIO.cleanup()
         
     # Get start time
     start_time = time.time()
