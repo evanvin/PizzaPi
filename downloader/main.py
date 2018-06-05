@@ -43,6 +43,7 @@ def getPlaylistInfo():
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(GREEN, GPIO.OUT)
         GPIO.output(GREEN, True)    
+        print("DOWNLOADING")
     except Exception as e:
         print e
         
