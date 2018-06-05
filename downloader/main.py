@@ -10,6 +10,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from mutagen.easyid3 import EasyID3
 from config import SPOTIFY
 
+import RPi.GPIO as GPIO
 try:
     import RPi.GPIO as GPIO
 except Exception as e:
@@ -42,10 +43,9 @@ def getPlaylistInfo():
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(GREEN, GPIO.OUT)
-        GPIO.output(GREEN, True)    
-        print("DOWNLOADING")
-    except Exception as e:
-        print e
+        GPIO.output(GREEN, True)
+    except:
+        print ""
         
     # Get start time
     start_time = time.time()
@@ -130,7 +130,7 @@ def getPlaylistInfo():
         GPIO.output(GREEN, FALSE)    
     except:
         print ""
-        
+                
     getPlaylistInfo()
 
 
