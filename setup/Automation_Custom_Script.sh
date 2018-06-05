@@ -13,6 +13,8 @@ cp ~/PizzaPi/setup/pizza.service /etc/systemd/system/
 sudo chmod 664 /etc/systemd/system/pizza.service
 systemctl daemon-reload
 systemctl enable pizza.service
+systemctl daemon-reload
+systemctl reset-failed
 
 cd ~/PizzaPi/downloader/
 python python usb.py & main.py
