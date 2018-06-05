@@ -9,7 +9,7 @@ except Exception as e:
     leds_loaded = False
     print(style.light_red.italic('Error importing gpiozero!'))
 
-USB = '/media/'
+USB = '/mnt/'
 DOWNLOAD = 'downloads/'
 
 def checkUSB():
