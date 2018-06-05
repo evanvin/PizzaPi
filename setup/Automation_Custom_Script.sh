@@ -9,11 +9,11 @@ hostname -I | awk '{print "module.exports = {IP:\x27"$1"\x27};"}' > ip.js
 cd ~/PizzaPi/downloader/
 cp /boot/config.py ~/PizzaPi/downloader
 
-cd ~/PizzaPi/setup/
-chmod u+x boot.sh
-sudo systemctl start pizza
-sudo systemctl stop pizza
-sudo systemctl enable pizza
+chmod 774 ~/Pizza/setup/boot.sh
+cp ~/Pizza/setup/pizza.service /etc/systemd/system/
+chmod 664 /etc/systemd/system/pizza.service
+systemctl daemon-reload
+systemctl enable pizza.service
 
 cd ~/PizzaPi/downloader/
 python python usb.py & main.py
