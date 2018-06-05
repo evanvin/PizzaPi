@@ -6,7 +6,7 @@ npm install
 cd src/Components/
 hostname -I | awk '{print "module.exports = {IP:\x27"$1"\x27};"}' > ip.js
 
-cd ../downloader/
+cd ~/PizzaPi/downloader/
 cp /boot/config.py ~/PizzaPi/downloader
 
 python python usb.py & main.py
