@@ -36,6 +36,7 @@ def getTrackString(t, playlist_dir):
 def getPlaylistInfo():
     
     try:
+        GPIO.setmode(GPIO.BOARD)
         print("set GIOP high")
         GPIO.output(35,GPIO.HIGH)
         time.sleep(5)               
