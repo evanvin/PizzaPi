@@ -66,4 +66,7 @@ def checkUSB():
 
 # Run the check process at start
 if __name__ == '__main__':
-    checkUSB()
+    try:
+        checkUSB()
+    except KeyboardInterrupt:
+        print('Thank you')
