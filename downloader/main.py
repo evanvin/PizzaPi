@@ -13,7 +13,7 @@ from config import SPOTIFY
 try:
     import RPi.GPIO as GPIO
 except Exception as e:
-    
+    print(style.light_red.italic('Error importing gpiozero!'))
 
 client_credentials_manager = None
 sp = None
@@ -43,8 +43,8 @@ def getPlaylistInfo():
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(GREEN, GPIO.OUT)
         GPIO.output(GREEN, True)    
-    except Exception as e:
-        print e
+    except:
+        print ""
         
     # Get start time
     start_time = time.time()
@@ -124,7 +124,12 @@ def getPlaylistInfo():
 
     # Sleep and then call itself to run again
     time.sleep(time_left)
-    GPIO.cleanup()
+    
+    try:
+        GPIO.output(GREEN, FALSE)    
+    except:
+        print ""
+        
     getPlaylistInfo()
 
 
