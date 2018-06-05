@@ -43,8 +43,8 @@ def getPlaylistInfo():
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(GREEN, GPIO.OUT)
         GPIO.output(GREEN, True)    
-    except:
-        print ""
+    except Exception as e:
+        print e
         
     # Get start time
     start_time = time.time()
