@@ -275,6 +275,9 @@ if __name__ == '__main__':
         )
 
         # Start the download/tagging process
-        getPlaylistInfo()
+        try:
+            getPlaylistInfo()
+        except KeyboardInterrupt:
+            print('Thank you')
     else:
         error('There was and issue with the client id or secret provided in the config file. Please check config.py for issues.')
