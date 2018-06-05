@@ -18,6 +18,7 @@ try:
     green = LED(47)
     les_loaded = True
 except Exception as e:
+    print e
     leds_loaded = False
     print(style.light_red.italic('Error importing gpiozero!'))
 
