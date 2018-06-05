@@ -1,5 +1,11 @@
 import os, shutil, time, style
 
+
+# try:
+#     import RPi.GPIO as GPIO
+# except Exception as e:
+#     print(style.light_red.italic('Error importing gpiozero!'))
+    
 # try:
 #     GREEN = 16
 #     GPIO.setwarnings(False)
