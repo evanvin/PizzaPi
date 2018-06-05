@@ -39,11 +39,15 @@ def getPlaylistInfo():
     channels = 37
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(channels, GPIO.OUT)
+    GPIO.setwarnings(False)
     for i in range(5):
+        print('top' + i)
         GPIO.output(channels, GPIO.HIGH)
         time.sleep(5)
+        print('middle' + i)
         GPIO.output(channels, GPIO.LOW)
         time.sleep(5)
+        print('bottom' + i)
     GPIO.cleanup()
         
     # Get start time
