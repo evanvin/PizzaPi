@@ -198,11 +198,19 @@ def tag(t):
             if 'title' in r:
                 tags['title'] = r['title']
             else:
+                try:
+                    tags['title'] = t['track_info']['recording']
+                except:
+                    error('\t\tThe incoming track information contained no title.')
                 error('\t\tNo title name found for track.')
 
             if 'artist-credit-phrase' in r:
                 tags['artist'] = r['artist-credit-phrase']
             else:
+                try:
+                    tags['artist'] = t['track_info']['artist']
+                except:
+                    error('\t\tThe incoming track information contained no artist.')
                 error('\t\tNo artist name found for track.')
 
             if 'release-list' in r and len(r['release-list']) > 0:
