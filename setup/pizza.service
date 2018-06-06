@@ -1,0 +1,10 @@
+[Unit]
+Description=PizzaPi startup script
+
+[Service]
+Type=oneshot
+RemainAfterExit=false
+ExecStart=/root/PizzaPi/setup/.boot
+
+[Install]
+WantedBy=multi-user.target
