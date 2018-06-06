@@ -1,5 +1,5 @@
 git clone https://github.com/evanvin/PizzaPi.git
-sudo pip install tinydb spotipy beautifulsoup4 mutagen youtube_dl musicbrainzngs style flask flask-cors click
+pip install tinydb spotipy beautifulsoup4 mutagen youtube_dl musicbrainzngs style flask flask-cors click
 
 cd ~/PizzaPi/storage/
 npm install
@@ -8,13 +8,10 @@ hostname -I | awk '{print "module.exports = {IP:\x27"$1"\x27};"}' > ip.js
 
 cp /boot/config.py ~/PizzaPi/downloader
 
-sudo chmod 774 ~/PizzaPi/setup/boot.sh
+chmod +x ~/PizzaPi/setup/.boot
 cp ~/PizzaPi/setup/pizza.service /etc/systemd/system/
-sudo chmod 664 /etc/systemd/system/pizza.service
-systemctl daemon-reload
-systemctl enable pizza.service
-systemctl daemon-reload
-systemctl reset-failed
+systemctl enable pizza
+systemctl start pizza
+systemctl stop pizza
 
-cd ~/PizzaPi/downloader/
-python python usb.py & main.py
+systemctl start pizza
