@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*
 from __future__ import unicode_literals
-import logging, os, re, urllib, urllib2, glob, style, time, click
+import logging, os, re, urllib, urllib2, glob, style, time, click, sys
 import spotipy, youtube_dl, mutagen, musicbrainzngs
 
 from tinydb import TinyDB, Query
@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from subprocess import call
 from spotipy.oauth2 import SpotifyClientCredentials
 from mutagen.easyid3 import EasyID3
+sys.path.append('../')
 from config import SPOTIFY
 
 client_credentials_manager = None
