@@ -2,6 +2,8 @@ import time
 import commands
 import re
 import smtplib
+import sys
+sys.path.append('../')
 import EMAIL from config
 
 if EMAIL['send_ip_on_startup']:
