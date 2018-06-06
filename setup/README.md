@@ -8,6 +8,6 @@
     * Other configurations include: sending an email listing the Raspberry Pi's IP address on every startup
 5.  Safely eject the MicroSD card, and plug into your RPI/Other device. Plug in an ethernet cord, and power up the device and wait.
     1.  If you have an HDMI cable hooked up and are watching the auto-setup, then you will be able to see the IP address at the end of setup that you can SSH into.
-    2.  OTHERWISE... If you are trying to do a headless install, you can run a simple 'arp -a' command from another computer on the same network and figure out which IP address is newer (most likely the RPI)
+    2.  OTHERWISE... If you are trying to do a headless install, you can run a simple 'arp -a' command from another computer on the same network and figure out which IP address is newer (most likely the RPI), or you can download a free third party scanner like [Angry IP](http://angryip.org/download)
 
 * **If you haven't used dietpi before, the default login credentials is root:dietpi**
