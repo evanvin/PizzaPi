@@ -51,6 +51,6 @@ You should be able to insert an USB device into the RPI device and it will autom
 * [ ] Add code for potential GPIO button press to trigger a download refresh
 * [ ] Add option to startup script to send the IP address to a provided email address
 * [ ] Add way for user to update persisted Spotify configuration after initial setup
-* [ ] Make config file placeable in the dietpi boot folder
+* [x] Make config file placeable in the dietpi boot folder
 * [ ] Create post-first-time-boot startup script
 * [ ] Add log files for processes
