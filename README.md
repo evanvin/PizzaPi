@@ -22,7 +22,7 @@
 
 ### Setup
 
-Please the [setup](https://github.com/evanvin/PizzaPi/tree/master/setup) folder in this project
+Please navigate to the [setup](https://github.com/evanvin/PizzaPi/tree/master/setup) folder in this project
 
 ---
 
